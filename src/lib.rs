@@ -1,3 +1,6 @@
+mod entity;
+pub use entity::*;
+
 mod flex;
 pub use flex::*;
 

@@ -19,6 +19,7 @@
 use crate::{
     Limits, Node,
     Align, Point, Size,
+    Entity,
 };
 
 /// The main axis of a flex layout.
@@ -60,9 +61,6 @@ impl Axis {
 /// It returns a new layout [`Node`].
 ///
 /// [`Node`]: ../struct.Node.html
-#[derive(Clone, Copy, Default, Debug)]
-pub struct Entity(u32);
-// use crate::Widget;
 
 pub type LayoutMap = fn(Entity) -> crate::Layout;
 

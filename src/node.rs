@@ -4,7 +4,7 @@ use crate::{Align, Point, Rectangle, Size};
 #[derive(Debug, Clone, Default)]
 pub struct Node {
     bounds: Rectangle,
-    children: Vec<Node>,
+    children: Vec<Self>,
 }
 
 impl Node {
@@ -20,7 +20,7 @@ impl Node {
     ///
     /// [`Node`]: struct.Node.html
     /// [`Size`]: ../struct.Size.html
-    pub const fn with_children(size: Size, children: Vec<Node>) -> Self {
+    pub const fn with_children(size: Size, children: Vec<Self>) -> Self {
         Self {
             bounds: Rectangle {
                 x: 0.0,
