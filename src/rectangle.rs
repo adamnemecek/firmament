@@ -103,8 +103,8 @@ impl Rectangle<f32> {
     /// [`Rectangle`]: struct.Rectangle.html
     pub fn intersection(
         &self,
-        other: &Rectangle<f32>,
-    ) -> Option<Rectangle<f32>> {
+        other: &Self,
+    ) -> Option<Self> {
         let x = self.x.max(other.x);
         let y = self.y.max(other.y);
 
@@ -115,7 +115,7 @@ impl Rectangle<f32> {
         let height = lower_right_y - y;
 
         if width > 0.0 && height > 0.0 {
-            Some(Rectangle {
+            Some(Self {
                 x,
                 y,
                 width,
@@ -153,8 +153,8 @@ impl std::ops::Mul<f32> for Rectangle<f32> {
 }
 
 impl From<Rectangle<u32>> for Rectangle<f32> {
-    fn from(rectangle: Rectangle<u32>) -> Rectangle<f32> {
-        Rectangle {
+    fn from(rectangle: Rectangle<u32>) -> Self {
+        Self {
             x: rectangle.x as f32,
             y: rectangle.y as f32,
             width: rectangle.width as f32,

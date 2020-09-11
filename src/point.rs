@@ -71,7 +71,7 @@ impl std::ops::Sub<Vector> for Point {
 impl std::ops::Sub<Point> for Point {
     type Output = Vector;
 
-    fn sub(self, point: Point) -> Vector {
+    fn sub(self, point: Self) -> Vector {
         Vector::new(self.x - point.x, self.y - point.y)
     }
 }
