@@ -1,7 +1,3 @@
-pub struct Length {
-
-}
-
 // pub struct 
 /// Alignment on an axis of a container.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

@@ -54,13 +54,19 @@ impl Axis {
     }
 }
 
+pub trait Positionable {
+    
+}
+
 /// Computes the flex layout with the given axis and limits, applying spacing,
 /// padding and alignment to the items as needed.
 ///
 /// It returns a new layout [`Node`].
 ///
 /// [`Node`]: ../struct.Node.html
-pub fn resolve<Message, Renderer>(
+pub struct Entity(u32);
+
+pub fn resolve(
     axis: Axis,
     renderer: &Renderer,
     limits: &Limits,
