@@ -16,5 +16,8 @@ pub use vector::*;
 mod point;
 pub use point::*;
 
+mod size;
+pub use size::*;
+
 mod rectangle;
 pub use rectangle::*;
