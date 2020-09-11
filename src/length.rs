@@ -30,16 +30,16 @@ impl Length {
     /// [`Length`]: enum.Length.html
     pub fn fill_factor(&self) -> u16 {
         match self {
-            Length::Fill => 1,
-            Length::FillPortion(factor) => *factor,
-            Length::Shrink => 0,
-            Length::Units(_) => 0,
+            Self::Fill => 1,
+            Self::FillPortion(factor) => *factor,
+            Self::Shrink => 0,
+            Self::Units(_) => 0,
         }
     }
 }
 
 impl From<u16> for Length {
     fn from(units: u16) -> Self {
-        Length::Units(units)
+        Self::Units(units)
     }
 }
