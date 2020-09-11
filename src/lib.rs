@@ -24,3 +24,6 @@ pub use size::*;
 
 mod rectangle;
 pub use rectangle::*;
+
+mod widget;
+pub use widget::*;

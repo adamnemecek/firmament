@@ -54,10 +54,6 @@ impl Axis {
     }
 }
 
-pub trait Positionable {
-    
-}
-
 /// Computes the flex layout with the given axis and limits, applying spacing,
 /// padding and alignment to the items as needed.
 ///
