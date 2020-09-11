@@ -18,7 +18,7 @@
 // limitations under the License.
 use crate::{
     Limits, Node,
-    Align, Element, Point, Size,
+    Align, Point, Size,
 };
 
 /// The main axis of a flex layout.
@@ -60,19 +60,24 @@ impl Axis {
 /// It returns a new layout [`Node`].
 ///
 /// [`Node`]: ../struct.Node.html
+#[derive(Clone, Copy, Default, Debug)]
 pub struct Entity(u32);
+// use crate::Widget;
+
+pub type LayoutMap = fn(Entity) -> crate::Layout;
 
 pub fn resolve(
     axis: Axis,
-    renderer: &Renderer,
+    // renderer: &Renderer,
     limits: &Limits,
     padding: f32,
     spacing: f32,
     align_items: Align,
-    items: &[Element<'_, Message, Renderer>],
+    items: &[Entity],
+    layout_map: LayoutMap
 ) -> Node
-where
-    Renderer: crate::Renderer,
+// where
+//     Renderer: crate::Renderer,
 {
     let limits = limits.pad(padding);
     let total_spacing = spacing * items.len().saturating_sub(1) as f32;
@@ -85,7 +90,8 @@ where
     let mut nodes: Vec<Node> = Vec::with_capacity(items.len());
     nodes.resize(items.len(), Node::default());
 
-    for (i, child) in items.iter().enumerate() {
+    for (i, entity) in items.iter().enumerate() {
+        let child = layout_map(*entity);
         let fill_factor = match axis {
             Axis::Horizontal => child.width(),
             Axis::Vertical => child.height(),
@@ -98,7 +104,7 @@ where
             let child_limits =
                 Limits::new(Size::ZERO, Size::new(max_width, max_height));
 
-            let layout = child.layout(renderer, &child_limits);
+            let layout = child.layout(&child_limits);
             let size = layout.size();
 
             available -= axis.main(size);
@@ -112,7 +118,8 @@ where
 
     let remaining = available.max(0.0);
 
-    for (i, child) in items.iter().enumerate() {
+    for (i, entity) in items.iter().enumerate() {
+        let child = layout_map(*entity);
         let fill_factor = match axis {
             Axis::Horizontal => child.width(),
             Axis::Vertical => child.height(),
@@ -138,7 +145,7 @@ where
                 Size::new(max_main, max_cross),
             );
 
-            let layout = child.layout(renderer, &child_limits);
+            let layout = child.layout(&child_limits);
             cross = cross.max(axis.cross(layout.size()));
 
             nodes[i] = layout;

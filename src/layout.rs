@@ -1,14 +1,14 @@
 use crate::{Length, Node, Limits};
-pub trait Widget : Sized {
+pub struct Layout {
     /// Returns the width of the [`Widget`].
     ///
     /// [`Widget`]: trait.Widget.html
-    fn width(&self) -> Length;
+    width: Length,
 
     /// Returns the height of the [`Widget`].
     ///
     /// [`Widget`]: trait.Widget.html
-    fn height(&self) -> Length;
+    height: Length,
 
     /// Returns the [`Node`] of the [`Widget`].
     ///
@@ -18,11 +18,13 @@ pub trait Widget : Sized {
     /// [`Node`]: ../layout/struct.Node.html
     /// [`Widget`]: trait.Widget.html
     /// [`Layout`]: ../layout/struct.Layout.html
-    fn layout(
-        &self,
-        // renderer: &Renderer,
-        limits: &Limits,
-    ) -> Node;
+
+    layout_fn: fn(&Limits) -> Node,
+    // fn layout(
+    //     &self,
+    //     // renderer: &Renderer,
+    //     limits: &Limits,
+    // ) -> Node;
 
     // /// Draws the [`Widget`] using the associated `Renderer`.
     // ///
@@ -87,4 +89,18 @@ pub trait Widget : Sized {
     // ) -> Option<overlay::Element<'_, Message, Renderer>> {
     //     None
     // }
+}
+
+impl Layout {
+    pub fn width(&self) -> Length {
+        self.width
+    }
+
+    pub fn height(&self) -> Length {
+        self.height
+    }
+
+    pub fn layout(&self, limits: &Limits) -> Node {
+        (self.layout_fn)(limits)
+    }
 }
