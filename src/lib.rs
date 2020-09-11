@@ -4,8 +4,8 @@ pub use entity::*;
 mod flex;
 pub use flex::*;
 
-mod geom;
-pub use geom::*;
+mod align;
+pub use align::*;
 
 mod limits;
 pub use limits::*;
