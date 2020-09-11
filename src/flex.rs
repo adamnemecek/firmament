@@ -35,22 +35,22 @@ pub enum Axis {
 impl Axis {
     fn main(&self, size: Size) -> f32 {
         match self {
-            Axis::Horizontal => size.width,
-            Axis::Vertical => size.height,
+            Self::Horizontal => size.width,
+            Self::Vertical => size.height,
         }
     }
 
     fn cross(&self, size: Size) -> f32 {
         match self {
-            Axis::Horizontal => size.height,
-            Axis::Vertical => size.width,
+            Self::Horizontal => size.height,
+            Self::Vertical => size.width,
         }
     }
 
     fn pack(&self, main: f32, cross: f32) -> (f32, f32) {
         match self {
-            Axis::Horizontal => (main, cross),
-            Axis::Vertical => (cross, main),
+            Self::Horizontal => (main, cross),
+            Self::Vertical => (cross, main),
         }
     }
 }
