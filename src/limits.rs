@@ -10,7 +10,7 @@ pub struct Limits {
 
 impl Limits {
     /// No limits
-    pub const NONE: Limits = Limits {
+    pub const NONE: Self = Self {
         min: Size::ZERO,
         max: Size::INFINITY,
         fill: Size::INFINITY,
@@ -20,8 +20,8 @@ impl Limits {
     ///
     /// [`Limits`]: struct.Limits.html
     /// [`Size`]: ../struct.Size.html
-    pub const fn new(min: Size, max: Size) -> Limits {
-        Limits {
+    pub const fn new(min: Size, max: Size) -> Self {
+        Self {
             min,
             max,
             fill: Size::INFINITY,
@@ -55,7 +55,7 @@ impl Limits {
     /// Applies a width constraint to the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn width(mut self, width: Length) -> Limits {
+    pub fn width(mut self, width: Length) -> Self {
         match width {
             Length::Shrink => {
                 self.fill.width = self.min.width;
@@ -79,7 +79,7 @@ impl Limits {
     /// Applies a height constraint to the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn height(mut self, height: Length) -> Limits {
+    pub fn height(mut self, height: Length) -> Self {
         match height {
             Length::Shrink => {
                 self.fill.height = self.min.height;
@@ -103,7 +103,7 @@ impl Limits {
     /// Applies a minimum width constraint to the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn min_width(mut self, min_width: u32) -> Limits {
+    pub fn min_width(mut self, min_width: u32) -> Self {
         self.min.width =
             self.min.width.max(min_width as f32).min(self.max.width);
 
@@ -113,7 +113,7 @@ impl Limits {
     /// Applies a maximum width constraint to the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn max_width(mut self, max_width: u32) -> Limits {
+    pub fn max_width(mut self, max_width: u32) -> Self {
         self.max.width =
             self.max.width.min(max_width as f32).max(self.min.width);
 
@@ -123,7 +123,7 @@ impl Limits {
     /// Applies a minimum height constraint to the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn min_height(mut self, min_height: u32) -> Limits {
+    pub fn min_height(mut self, min_height: u32) -> Self {
         self.min.height =
             self.min.height.max(min_height as f32).min(self.max.height);
 
@@ -133,7 +133,7 @@ impl Limits {
     /// Applies a maximum height constraint to the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn max_height(mut self, max_height: u32) -> Limits {
+    pub fn max_height(mut self, max_height: u32) -> Self {
         self.max.height =
             self.max.height.min(max_height as f32).max(self.min.height);
 
@@ -143,7 +143,7 @@ impl Limits {
     /// Shrinks the current [`Limits`] to account for the given padding.
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn pad(&self, padding: f32) -> Limits {
+    pub fn pad(&self, padding: f32) -> Self {
         self.shrink(Size::new(padding * 2.0, padding * 2.0))
     }
 
@@ -151,7 +151,7 @@ impl Limits {
     ///
     /// [`Limits`]: struct.Limits.html
     /// [`Size`]: ../struct.Size.html
-    pub fn shrink(&self, size: Size) -> Limits {
+    pub fn shrink(&self, size: Size) -> Self {
         let min = Size::new(
             (self.min().width - size.width).max(0.0),
             (self.min().height - size.height).max(0.0),
@@ -167,14 +167,14 @@ impl Limits {
             (self.fill.height - size.height).max(0.0),
         );
 
-        Limits { min, max, fill }
+        Self { min, max, fill }
     }
 
     /// Removes the minimum width constraint for the current [`Limits`].
     ///
     /// [`Limits`]: struct.Limits.html
-    pub fn loose(&self) -> Limits {
-        Limits {
+    pub fn loose(&self) -> Self {
+        Self {
             min: Size::ZERO,
             max: self.max,
             fill: self.fill,

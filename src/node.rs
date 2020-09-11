@@ -21,7 +21,7 @@ impl Node {
     /// [`Node`]: struct.Node.html
     /// [`Size`]: ../struct.Size.html
     pub const fn with_children(size: Size, children: Vec<Node>) -> Self {
-        Node {
+        Self {
             bounds: Rectangle {
                 x: 0.0,
                 y: 0.0,
